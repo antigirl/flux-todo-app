@@ -13,5 +13,12 @@ module.exports = {
       type: 'remove-item',
       item: item
     });
+  },
+
+  completeItem: function(itemKey) {
+    appDispatcher.dispatch({
+      type: 'complete-item',
+      item: itemKey
+    });
   }
 }

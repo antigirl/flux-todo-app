@@ -4,16 +4,33 @@ var assign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
-var items = ['item1', 'item2'];
+var items = [{txt: 'item0', key:'item1', done: false},
+             {txt: 'item1', key:'item2', done: false}];
 
 function addItem(item) {
-  items.push(item);
+  var itemKey = 'item' + (items.length + 1);
+  items.push({txt: item, key: itemKey, done: false});
 }
 
-function removeItem(item) {
-  var index = items.indexOf(item);
-  if(index !== -1) {
-    items.splice(index, 1);  
+function removeItem(itemKey) {
+  var itemIndex = items.map(function(item, index) {
+    if(item.key === itemKey) {
+      return index;
+    }
+  }).filter(isFinite);
+
+  items.splice(itemIndex, 1);
+}
+
+function completeItem(itemKey) {
+  var item = items.filter(function(item) {
+    return item.key === itemKey;
+  });
+
+  if(item[0].done) {
+    item[0].done = false;
+  } else {
+    item[0].done = true;  
   }
 }
 
@@ -42,6 +59,10 @@ var appStore = assign(EventEmitter.prototype, {
 
       case 'remove-item':
       removeItem(payload.item);
+      break;
+
+      case 'complete-item':
+      completeItem(payload.item);
       break;
     }
 

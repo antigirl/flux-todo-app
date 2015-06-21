@@ -1,13 +1,17 @@
 var React = require('react');
-var Items = require('./components/items');
-var Controls = require('./components/itemControls');
+var Items = require('./components/Items');
+var Header = require('./components/Header');
 
 var App = React.createClass({
   render: function() {
     return (
       <div>
-        <Controls/>
-        <Items/>
+        <section id="todoapp">
+          <Header/>
+        </section>
+        <section id="main">
+          <Items/>
+        </section>
       </div>
     );
   }

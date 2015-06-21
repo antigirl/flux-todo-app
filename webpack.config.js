@@ -19,6 +19,10 @@ module.exports = {
               test: /\.html$/,
               loader: "file?name=[name].[ext]",
             },
+            {
+              test: /\.scss$/,
+              loader: "style!css!sass"
+            }            
         ]
     },
     resolve: {
